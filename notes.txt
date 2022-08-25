@@ -1,0 +1,6 @@
+Polecenie uvicorn main:app odnosi się do:
+
+main: plik main.py ("moduł" Python).
+app: obiekt utworzony w pliku main.py w lini app = FastAPI().
+--reload: sprawia, że serwer uruchamia się ponownie po zmianie kodu. Używany tylko w trakcie tworzenia oprogramowania.
+
