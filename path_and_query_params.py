@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from enum import Enum
 
 app = FastAPI()
-
+# uvicorn [filename]:[FastAPI instance name] [--reload - developer mode] 
 
 @app.get('/')
 async def root():
@@ -51,3 +51,22 @@ fake_db = [{'id': x} for x in range(10)]
 # http://127.0.0.1:8000/items/?start=4&limit=7
 def get_items(start: int = 0, limit: int = 10):
     return fake_db[start : limit]
+
+# optional parameters\
+@app.get('/items2/{item_id}')
+# http://127.0.0.1:8000/items2/cool_item?q=abc
+# http://127.0.0.1:8000/items/foo?short=1
+# short can be 1, True, true, on, yes
+async def get_items2(item_id: str, q: str or None = None, short: bool = False):
+    item = {'id': item_id}
+    if q:
+        item.update({'q': q})
+    if not short:
+        item.update(
+            {"description": "This is an amazing item that has a long description"}
+        )
+    return item     
+    
+@app.get('/needy-q-params/')
+def needy_q_params(needy: str):
+    return {'param': needy}
